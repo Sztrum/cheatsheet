@@ -1,46 +1,159 @@
 # cheatsheet-sztrum
 
-## Table of Contents
-
-- [About](#about)
-- [Getting Started](#getting_started)
-- [Usage](#usage)
-- [Contributing](../CONTRIBUTING.md)
-
-## About <a name = "about"></a>
-
-Write about 1-2 paragraphs describing the purpose of your project.
+Personal cheatsheet
 
 ## Getting Started <a name = "getting_started"></a>
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
+Personal cheatsheet
 
 ### Prerequisites
 
-What things you need to install the software and how to install them.
-
+Start project  
 ```
-Give examples
+npm init --yes
+```
+Things to install:  
+- **webpack**
+```
+npm install webpack --save-dev
+```
+- **webpack-cli**
+```
+npm install webpack-cli --save-dev
+```
+- **autoprefixer**
+```
+npm install autoprefixer --save-dev
+```
+- **cross-env**
+```
+npm install cross-env --save-dev
+```
+- **date-fns**
+```
+npm install date-fns
+```
+- **lodash**
+```
+npm install lodash
+```
+- **tailwindcss**
+```
+npm install tailwindcss --save-dev
+```
+- **@tailwindcss/forms**
+```
+npm install @tailwindcss/forms --save-dev
+```
+- **postcss**
+```
+npm install postcss --save-dev
+```
+- **postcss-cli**
+```
+npm install postcss-cli --save-dev
+```
+- **postcss-import**
+```
+npm install postcss-import --save-dev
+```
+- **eslint**
+```
+npm install eslint --save-dev
+./node_modules/.bin/eslint --init
+```
+- **prettier**
+```
+npm install --save-dev --save-exact prettier
+node --eval "fs.writeFileSync('.prettierrc','{}\n')"
+npm install --save-dev eslint-config-prettier
 ```
 
-### Installing
+## Files configs:
 
-A step by step series of examples that tell you how to get a development env running.
-
-Say what the step will be
-
+**package.json scripts**
 ```
-Give the example
-```
-
-And repeat
-
-```
-until finished
+"scripts": {
+  "test": "echo \"Error: no test specified\" && exit 1",
+  "build": "npx webpack",
+  "build:watch": "npx webpack --watch",
+  "dev": "postcss src/css/styles.css -o dist/main.css --watch",
+  "prod": "cross-env NODE_ENV=production postcss src/css/styles.css -o dist/main.css",
+  "git": "git subtree push --prefix dist origin gh-pages"
+}
 ```
 
-End with an example of getting some data out of the system or using it for a little demo.
+**.eslintrc.json**
+```
+    {
+        "env": {
+          "browser": true,
+          "commonjs": true,
+          "es2021": true
+        },
+        "extends": [
+          "airbnb-base",
+          "some-other-config-you-use",
+          "prettier"
+        ],
+        "parserOptions": {
+          "ecmaVersion": 12
+        },
+        "rules": {
+          "no-console": "off",
+          "quotes": ["error", "double"]
+        }
+      }
+```
 
-## Usage <a name = "usage"></a>
+**settings.jso**
+```
+      {
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": true
+        },
+        "eslint.validate": ["javascript"]
+      }
+```
 
-Add notes about how to use the system.
+**webpack.config.js, tailwind.config.js, postcss.config.js**
+```
+      // webpack.config.js
+      const path = require('path');
+      
+      module.exports = {
+        entry: './src/js/index.js',
+        output: {
+          filename: 'main.js',
+          path: path.resolve(__dirname, 'dist'),
+        },
+      };
+      
+      // tailwind.config.js
+      module.exports = {
+        purge: [
+          './dist/**/*.html',
+          './src/js/*.js',
+        ],
+        content: ["./src/css/*.{html,js}"],
+        theme: {
+          fontFamily: {
+            'seg': ['Segoe UI', 'Sans', 'Arial'],
+          },
+          extend: {},
+        },
+        plugins: [
+          require('tailwindcss'),
+          require('autoprefixer'),
+          require('@tailwindcss/forms'),
+        ],
+      };
+      
+      // postcss.config.js
+      module.exports = {
+        plugins: {
+          tailwindcss: {},
+          autoprefixer: {},
+        }
+      }
+```
